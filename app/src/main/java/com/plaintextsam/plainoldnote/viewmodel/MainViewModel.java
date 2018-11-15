@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 
 import com.plaintextsam.plainoldnote.database.AppRepository;
 import com.plaintextsam.plainoldnote.database.NoteEntity;
-import com.plaintextsam.plainoldnote.utilities.SampleData;
 
 import java.util.List;
 
