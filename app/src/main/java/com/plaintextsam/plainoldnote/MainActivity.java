@@ -7,18 +7,22 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.plaintextsam.plainoldnote.databinding.ActivityMainBinding;
-import com.plaintextsam.plainoldnote.databinding.ContentMainBinding;
+import com.plaintextsam.plainoldnote.model.NoteEntity;
+import com.plaintextsam.plainoldnote.utilities.SampleData;
 
-import io.reactivex.Observable;
+import java.util.ArrayList;
+import java.util.List;
+
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding activityMainBinding;
 
+    List<NoteEntity> mNoteEntities = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
         initRecyclerView();
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
+
+        mNoteEntities.addAll(SampleData.getNotes());
+        for (NoteEntity noteEntity : mNoteEntities) {
+            Timber.d(noteEntity.toString());
+        }
+
     }
 
     private void initRecyclerView() {
