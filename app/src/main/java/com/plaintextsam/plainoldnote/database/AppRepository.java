@@ -1,5 +1,6 @@
 package com.plaintextsam.plainoldnote.database;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 
 import com.plaintextsam.plainoldnote.utilities.SampleData;
@@ -12,7 +13,7 @@ import timber.log.Timber;
 
 public class AppRepository {
     private static AppRepository ourInstance;
-    public List<NoteEntity> mNoteEntities;
+    private LiveData<List<NoteEntity>> mNoteEntities;
     private AppDataBase mDataBase;
     private Executor mExecutor = Executors.newSingleThreadExecutor();
 
@@ -35,5 +36,7 @@ public class AppRepository {
         });
     }
 
-
+    public LiveData<List<NoteEntity>> getAllNotes() {
+        return mDataBase.noteDao().getAll();
+    }
 }

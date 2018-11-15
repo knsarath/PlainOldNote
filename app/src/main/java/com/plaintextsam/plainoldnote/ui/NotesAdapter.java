@@ -39,6 +39,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return mNoteEntities == null ? 0 : mNoteEntities.size();
     }
 
+    public void setData(List<NoteEntity> list) {
+        mNoteEntities = list;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView mTextView;
 

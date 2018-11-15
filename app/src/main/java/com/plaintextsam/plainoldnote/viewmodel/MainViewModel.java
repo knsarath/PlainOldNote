@@ -2,6 +2,7 @@ package com.plaintextsam.plainoldnote.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
 import com.plaintextsam.plainoldnote.database.AppRepository;
@@ -12,18 +13,18 @@ import java.util.List;
 public class MainViewModel extends AndroidViewModel {
 
     private AppRepository mAppRepository = AppRepository.getInstance(getApplication());
-    private List<NoteEntity> mNoteEntities;
+    private LiveData<List<NoteEntity>> mNoteEntities;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
-        mNoteEntities = mAppRepository.mNoteEntities;
+        mNoteEntities = mAppRepository.getAllNotes();
     }
 
     public void addSampleData() {
         mAppRepository.addSampleData();
     }
 
-    public List<NoteEntity> getNotes() {
+    public LiveData<List<NoteEntity>> getLiveNotesData() {
         return mNoteEntities;
     }
 }
