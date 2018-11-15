@@ -27,4 +27,8 @@ public class MainViewModel extends AndroidViewModel {
     public LiveData<List<NoteEntity>> getLiveNotesData() {
         return mNoteEntities;
     }
+
+    public void deleteAll() {
+        mAppRepository.deleteAll();
+    }
 }

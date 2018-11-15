@@ -84,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add_data) {
             mMainViewModel.addSampleData();
+        } else if (id == R.id.delete_all_notes) {
+            mMainViewModel.deleteAll();
         }
         return super.onOptionsItemSelected(item);
     }
