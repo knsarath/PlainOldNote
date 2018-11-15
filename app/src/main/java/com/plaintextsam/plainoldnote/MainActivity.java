@@ -1,5 +1,6 @@
 package com.plaintextsam.plainoldnote;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.plaintextsam.plainoldnote.databinding.ActivityMainBinding;
 import com.plaintextsam.plainoldnote.model.NoteEntity;
@@ -38,11 +40,17 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
 
+        fab.setOnClickListener(this::fabClick);
         mNoteEntities.addAll(SampleData.getNotes());
         for (NoteEntity noteEntity : mNoteEntities) {
             Timber.d(noteEntity.toString());
         }
 
+    }
+
+    private void fabClick(View view) {
+        Intent intent = new Intent(this, EditorActivity.class);
+        startActivity(intent);
     }
 
     private void initRecyclerView() {
