@@ -4,9 +4,11 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 
 import com.plaintextsam.plainoldnote.database.AppDataBase;
 import com.plaintextsam.plainoldnote.database.NoteDAO;
+import com.plaintextsam.plainoldnote.database.NoteEntity;
 import com.plaintextsam.plainoldnote.utilities.SampleData;
 
 import org.junit.After;
@@ -30,22 +32,37 @@ public class DatabaseTest {
         Context context = InstrumentationRegistry.getTargetContext();
         mAppDataBase = Room.inMemoryDatabaseBuilder(context, AppDataBase.class).build();
         mNoteDAO = mAppDataBase.noteDao();
-        Timber.i(TAG, "setUp: Done");
+        Log.i(TAG, "setUp: Done");
     }
 
     @After
     public void tearDown() throws Exception {
         mAppDataBase.close();
-        Timber.i(TAG, "tearDown: Db closed");
+        Log.i(TAG, "tearDown: Db closed");
     }
 
     @Test
-    public void test() {
+    public void createAndRetreiveNotes() {
         mNoteDAO.insertAll(SampleData.getNotes());
         int count = mNoteDAO.getCuont();
-        System.out.println("Count : " + count);
+        Log.i(TAG, "Count : " + count);
         Assert.assertEquals(SampleData.getNotes().size(), count);
     }
 
+
+    @Test
+    public void compareStrings() {
+        mNoteDAO.insertAll(SampleData.getNotes());
+        NoteEntity noteEntity = SampleData.getNotes().get(0);
+        NoteEntity fromDb = mNoteDAO.getNoteById(1);
+        Assert.assertEquals(noteEntity.getText(), fromDb.getText());
+    }
+
+    @Test
+    public void compareId() {
+        mNoteDAO.insertAll(SampleData.getNotes());
+        NoteEntity fromDb = mNoteDAO.getNoteById(1);
+        Assert.assertEquals(1, fromDb.getId());
+    }
 
 }
