@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 
 import com.plaintextsam.plainoldnote.databinding.ActivityMainBinding;
 import com.plaintextsam.plainoldnote.model.NoteEntity;
+import com.plaintextsam.plainoldnote.ui.NotesAdapter;
 import com.plaintextsam.plainoldnote.utilities.SampleData;
 
 import java.util.ArrayList;
@@ -20,17 +22,18 @@ import java.util.List;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
-    ActivityMainBinding activityMainBinding;
 
-    List<NoteEntity> mNoteEntities = new ArrayList<>();
+    private ActivityMainBinding mActivitymainbinding;
+
+    private List<NoteEntity> mNoteEntities = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        Toolbar toolbar = activityMainBinding.toolbar;
+        mActivitymainbinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        Toolbar toolbar = mActivitymainbinding.toolbar;
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = activityMainBinding.fab;
+        FloatingActionButton fab = mActivitymainbinding.fab;
         initRecyclerView();
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
@@ -43,8 +46,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        activityMainBinding.included.recyclerView.setHasFixedSize(true);
-        activityMainBinding.included.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mActivitymainbinding.included.recyclerView.setHasFixedSize(true);
+        mActivitymainbinding.included.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mActivitymainbinding.included.recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        NotesAdapter notesAdapter = new NotesAdapter(SampleData.getNotes());
+        mActivitymainbinding.included.recyclerView.setAdapter(notesAdapter);
+
     }
 
     @Override
