@@ -11,11 +11,19 @@ import java.util.List;
 
 public class MainViewModel extends AndroidViewModel {
 
-    AppRepository mAppRepository = AppRepository.getInstance();
-    public List<NoteEntity> mNoteEntities;
+    private AppRepository mAppRepository = AppRepository.getInstance(getApplication());
+    private List<NoteEntity> mNoteEntities;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
         mNoteEntities = mAppRepository.mNoteEntities;
+    }
+
+    public void addSampleData() {
+        mAppRepository.addSampleData();
+    }
+
+    public List<NoteEntity> getNotes() {
+        return mNoteEntities;
     }
 }

@@ -23,8 +23,6 @@ import com.plaintextsam.plainoldnote.viewmodel.MainViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import timber.log.Timber;
-
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding mActivitymainbinding;
@@ -63,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         mActivitymainbinding.included.recyclerView.setHasFixedSize(true);
         mActivitymainbinding.included.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mActivitymainbinding.included.recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        NotesAdapter notesAdapter = new NotesAdapter(mMainViewModel.mNoteEntities);
+        NotesAdapter notesAdapter = new NotesAdapter(mMainViewModel.getNotes());
         mActivitymainbinding.included.recyclerView.setAdapter(notesAdapter);
     }
 
@@ -82,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_add_data) {
+            mMainViewModel.addSampleData();
         }
         return super.onOptionsItemSelected(item);
     }
