@@ -1,5 +1,6 @@
 package com.plaintextsam.plainoldnote;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.plaintextsam.plainoldnote.database.NoteEntity;
 import com.plaintextsam.plainoldnote.databinding.ActivityMainBinding;
 import com.plaintextsam.plainoldnote.ui.NotesAdapter;
 import com.plaintextsam.plainoldnote.utilities.SampleData;
+import com.plaintextsam.plainoldnote.viewmodel.MainViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     private List<NoteEntity> mNoteEntities = new ArrayList<>();
 
+    private MainViewModel mMainViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,16 +40,18 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = mActivitymainbinding.toolbar;
         setSupportActionBar(toolbar);
         FloatingActionButton fab = mActivitymainbinding.fab;
+        initViewModel();
         initRecyclerView();
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
 
         fab.setOnClickListener(this::fabClick);
         mNoteEntities.addAll(SampleData.getNotes());
-        for (NoteEntity noteEntity : mNoteEntities) {
-            Timber.d(noteEntity.toString());
-        }
 
+    }
+
+    private void initViewModel() {
+        mMainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
     }
 
     private void fabClick(View view) {
@@ -57,9 +63,8 @@ public class MainActivity extends AppCompatActivity {
         mActivitymainbinding.included.recyclerView.setHasFixedSize(true);
         mActivitymainbinding.included.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mActivitymainbinding.included.recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        NotesAdapter notesAdapter = new NotesAdapter(SampleData.getNotes());
+        NotesAdapter notesAdapter = new NotesAdapter(mMainViewModel.mNoteEntities);
         mActivitymainbinding.included.recyclerView.setAdapter(notesAdapter);
-
     }
 
     @Override
