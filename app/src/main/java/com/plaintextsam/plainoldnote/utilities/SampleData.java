@@ -1,7 +1,7 @@
 package com.plaintextsam.plainoldnote.utilities;
 
 
-import com.plaintextsam.plainoldnote.model.NoteEntity;
+import com.plaintextsam.plainoldnote.database.NoteEntity;
 
 import java.util.ArrayList;
 import java.util.Calendar;

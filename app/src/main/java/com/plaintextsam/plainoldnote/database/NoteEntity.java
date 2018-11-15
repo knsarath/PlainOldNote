@@ -1,12 +1,19 @@
-package com.plaintextsam.plainoldnote.model;
+package com.plaintextsam.plainoldnote.database;
+
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 
 import java.util.Date;
 
+@Entity(tableName = "tbl_notes")
 public class NoteEntity {
+    @PrimaryKey(autoGenerate = true)
     private int mId;
     private Date mDate;
     private String mText;
 
+    @Ignore
     public NoteEntity() {
     }
 
@@ -16,6 +23,7 @@ public class NoteEntity {
         mText = text;
     }
 
+    @Ignore
     public NoteEntity(Date date, String text) {
         mDate = date;
         mText = text;

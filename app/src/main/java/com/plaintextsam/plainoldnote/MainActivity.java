@@ -13,8 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.plaintextsam.plainoldnote.database.NoteEntity;
 import com.plaintextsam.plainoldnote.databinding.ActivityMainBinding;
-import com.plaintextsam.plainoldnote.model.NoteEntity;
 import com.plaintextsam.plainoldnote.ui.NotesAdapter;
 import com.plaintextsam.plainoldnote.utilities.SampleData;
 

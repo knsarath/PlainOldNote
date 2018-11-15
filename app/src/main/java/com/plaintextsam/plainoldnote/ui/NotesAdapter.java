@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.plaintextsam.plainoldnote.R;
-import com.plaintextsam.plainoldnote.model.NoteEntity;
+import com.plaintextsam.plainoldnote.database.NoteEntity;
 
 import java.util.List;
 
